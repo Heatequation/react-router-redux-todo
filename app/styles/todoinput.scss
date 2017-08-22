@@ -1,0 +1,16 @@
+
+.form {
+    padding: 10px 0;
+    display: flex;
+    flex-wrap: wrap;
+
+    input {
+        width: 80%;
+        max-width: 400px;
+    }
+
+    button {
+        width: 20%;
+        max-width: 50px;
+    }
+}

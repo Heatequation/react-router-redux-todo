@@ -1,19 +1,23 @@
 import React from 'react';
-import { Link, Route, Switch } from 'react-router-dom';
-import { footer } from '../styles/footer.scss';
+import { NavLink, Route, Switch, Redirect } from 'react-router-dom';
 import About from './About';
-import FilterableTable from '../containers/FilterableTable';
+import TodoScreen from './TodoScreen';
+import styles from '../styles/app.scss';
+import '../styles/global.scss';
 
 const App = () =>
-    <div>
-        <h1>Filter table</h1>
+    <div className={styles.div}>
+        <h1>ToDo App</h1>
         <Switch>
-        	<Route exact path="/" component={FilterableTable} />
-        	<Route path="/about" component={About} />
+            <Route exact path="/">
+                <Redirect to="/todolist/all" />
+            </Route>
+        	<Route path="/todolist/:filter?" component={TodoScreen} />
+            <Route path="/about" component={About} />
         </Switch>
-        <footer className={footer}>
-            <Link to="/">Filterable Table</Link>
-            <Link to="/about">About</Link>
+        <footer className={styles.footer}>
+            <NavLink activeClassName={styles.selected} to="/todolist">ToDo List</NavLink>
+            <NavLink activeClassName={styles.selected} to="/about">About</NavLink>
         </footer>
     </div>;
 
