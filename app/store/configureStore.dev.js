@@ -3,6 +3,8 @@ import { applyMiddleware, createStore, compose } from 'redux';
 import { routerMiddleware } from 'react-router-redux';
 import rootReducer from '../reducers';
 import DevTools from '../containers/DevTools';
+import thunk from 'redux-thunk';
+
 
 export const history = createHistory();
 const middleware = routerMiddleware(history);
@@ -12,7 +14,7 @@ export function configureStore(initialState) {
         rootReducer,
         initialState,
         compose(
-            applyMiddleware(middleware),
+            applyMiddleware(middleware, thunk),
             DevTools.instrument()
         )
     );

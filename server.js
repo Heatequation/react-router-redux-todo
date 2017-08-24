@@ -20,6 +20,12 @@ new WebpackDevServer(webpack(config), {
       timings: false,
       chunks: false,
       chunkModules: false
+    },
+    proxy: {
+      '/api/*': {
+          target: 'http://localhost:3001/',
+          secure: false
+        }
     }
 }).listen(3000, 'localhost', function (err) {
     if (err) {

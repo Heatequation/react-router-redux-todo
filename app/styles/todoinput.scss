@@ -5,12 +5,15 @@
     flex-wrap: wrap;
 
     input {
+        margin-left: 15px;
+        margin-right: 5px;
         width: 80%;
         max-width: 400px;
     }
 
     button {
-        width: 20%;
+        padding:0;
+        width: 10%;
         max-width: 50px;
     }
 }

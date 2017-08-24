@@ -39,6 +39,18 @@ const todos = (state = {byId: {}, allIds: []}, action) => {
                 },
                 allIds: [...state.allIds]
             };
+        case types.FINISH_FETCH_TODOS:
+            const byId = {};
+            const allIds = [];
+            action.todos.forEach(t => {
+                byId[t.id] = t;
+                allIds.push(t.id);
+            });
+            const newState = {
+                byId: byId,
+                allIds: allIds
+            };
+            return newState;
         default:
             return state;
     }

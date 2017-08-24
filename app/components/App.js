@@ -16,7 +16,7 @@ const App = () =>
             <Route path="/about" component={About} />
         </Switch>
         <footer className={styles.footer}>
-            <NavLink activeClassName={styles.selected} to="/todolist">ToDo List</NavLink>
+            <NavLink activeClassName={styles.selected} to="/todolist/all">ToDo List</NavLink>
             <NavLink activeClassName={styles.selected} to="/about">About</NavLink>
         </footer>
     </div>;

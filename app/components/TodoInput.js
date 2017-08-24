@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import {inputTodo, addTodo} from '../actions';
 import PropTypes from 'prop-types';
 import styles from '../styles/todoinput.scss';
+import {fetchTodosIfNeeded} from '../actions';
 
 const mapStateToProps = (state) => {
     return ({
@@ -20,13 +21,17 @@ const mapDispatchToProps = (dispatch) => {
             }
             dispatch(addTodo(value));
             dispatch(inputTodo(''));
+        },
+        handleRefresh: () => {
+            fetchTodosIfNeeded(dispatch);
         }
     });
 };
 
-let TodoInput = ({handleChange, value, handleSubmit}) => (
+let TodoInput = ({handleChange, value, handleSubmit, handleRefresh}) => (
 
         <form className={styles.form} onSubmit={(event) => handleSubmit(event, value)}>
+            <button type="button" onClick={handleRefresh}>Refresh</button>
             <input value={value} onChange={handleChange} />
             <button type="submit">Add</button>
         </form>
@@ -36,7 +41,8 @@ let TodoInput = ({handleChange, value, handleSubmit}) => (
 TodoInput.propTypes = {
     value: PropTypes.string,
     handleChange: PropTypes.func,
-    handleSubmit: PropTypes.func
+    handleSubmit: PropTypes.func,
+    handleRefresh: PropTypes.func
 };
 
 TodoInput = connect(mapStateToProps, mapDispatchToProps)(TodoInput);
