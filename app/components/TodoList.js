@@ -21,15 +21,22 @@ const mapStateToProps = (state, ownProps) => {
     return {filteredTodos};
 };
 
-let TodoList = ({filteredTodos}) => (
+let TodoList = ({filteredTodos, match}) => (
 
         <ul className={styles.ul}>
-            {filteredTodos.map(t => <TodoItem key={t.id} todo={t} />)}
+            {filteredTodos.map(t =>
+                <TodoItem
+                    key={t.id}
+                    todo={t}
+                    match={match}
+                />)
+            }
         </ul>
     );
 
 TodoList.propTypes = {
-    filteredTodos: PropTypes.array
+    filteredTodos: PropTypes.array,
+    match: PropTypes.object
 };
 
 TodoList = connect(mapStateToProps)(TodoList);

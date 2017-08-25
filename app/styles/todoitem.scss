@@ -1,13 +1,17 @@
-li {
+.li {
     
     padding-bottom: 10px;
 
-    input {
-
-    }
-
-    span {
+    a {
+        width: 90%;
         display: inline-block;
         padding-left: 15px;
+        text-decoration: none;
+        color: black;
+        background-color: none;
+    }
+
+    .selected {
+        text-decoration: underline;
     }
 }

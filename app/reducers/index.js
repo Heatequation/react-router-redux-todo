@@ -12,26 +12,38 @@ const filter = (state = '', action) => {
 };
 
 
-const todos = (state = {byId: {}, allIds: []}, action) => {
+const todos = (state = {byId: {}, allIds: [], isFetching: false, didInvalidate: false}, action) => {
     switch(action.type) {
         case types.ADD:
-            const nextId = Math.max(...state.allIds, 0) + 1;
-            const nextTodo = {
-                id: nextId,
-                text: action.todo,
-                complete: false
-            };
             return {
                 byId: {
                     ...(state.byId),
-                    [nextId]: nextTodo
+                    [action.todo.id]: action.todo
                 },
-                allIds: [...state.allIds, nextId]
+                allIds: [...state.allIds, action.todo.id]
+            };
+        case types.UPDATE:
+            return {
+                byId: {
+                    ...(state.byId),
+                    [action.todo.id]: action.todo
+                },
+                allIds: [...state.allIds]
+            };
+        case types.DELETE:
+            const allIdsTmp = state.allIds.slice();
+            const index = state.allIds.indexOf(action.id);
+            allIdsTmp.splice(index, 1);
+
+            const byIdTmp = Object.assign({}, state.byId);
+            delete byIdTmp[action.id];
+
+            return {
+                byId: byIdTmp,
+                allIds: allIdsTmp
             };
         case types.COMPLETE:
-
             const todoToChange = state.byId[action.id];
-
             return {
                 byId: {
                     ...(state.byId),
@@ -39,6 +51,10 @@ const todos = (state = {byId: {}, allIds: []}, action) => {
                 },
                 allIds: [...state.allIds]
             };
+        case types.INVALIDATE_TODOS:
+            return Object.assign({}, state, {didInvalidate: true});
+        case types.START_FETCH_TODOS:
+            return Object.assign({}, state, {isFetching: true});
         case types.FINISH_FETCH_TODOS:
             const byId = {};
             const allIds = [];
@@ -48,7 +64,10 @@ const todos = (state = {byId: {}, allIds: []}, action) => {
             });
             const newState = {
                 byId: byId,
-                allIds: allIds
+                allIds: allIds,
+                isFetching: false,
+                didInvalidate: false,
+                lastUpdated: Date.now()
             };
             return newState;
         default:

@@ -12,7 +12,7 @@ const App = () =>
             <Route exact path="/">
                 <Redirect to="/todolist/all" />
             </Route>
-        	<Route path="/todolist/:filter?" component={TodoScreen} />
+        	<Route path="/todolist/:filter" component={TodoScreen} />
             <Route path="/about" component={About} />
         </Switch>
         <footer className={styles.footer}>
